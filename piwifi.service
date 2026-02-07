@@ -1,0 +1,25 @@
+[Unit]
+Description=PiWifi - Raspberry Pi WiFi Router
+Documentation=https://github.com/yourusername/piwifi
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/piwifi
+Restart=on-failure
+RestartSec=10
+User=root
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=piwifi
+
+# Security hardening
+PrivateTmp=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/etc/dnsmasq.d /etc/iptables /var/log /var/lib/dnsmasq
+
+[Install]
+WantedBy=multi-user.target
